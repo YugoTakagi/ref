@@ -37,7 +37,7 @@ class integrate_number(object):
                 ARRANGE_INDEXS.append(index)
                 index_of_tvp += 1
                 if len(ARRANGE_INDEXS) == len(TVP_of_S):
-                        print("> integrate fin")
+                        #print("2> integrate fin")
                         break
         print("integrate({}): {} -> {}".format(len(TVP_of_S),len(before_x),len(ARRANGE_INDEXS)))
         #print('-------------------------------------------')

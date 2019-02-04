@@ -9,8 +9,9 @@ class accel_designer(object):
     """docstring foraccel_designer."""
     #curve_length = 0
     #t = 0
-    def __init__(self):
-        pass
+    dt = 0
+    def __init__(self, dt):
+        self.dt = dt
     def making_accel(self, a, VEL, X, time_start):
         ########################################################################
         ####|              a   := kasoku do(float)                         |####
@@ -23,7 +24,7 @@ class accel_designer(object):
         TIMES = [t, t1, t2, t3]
         A, V, XX = self.quantity_designer(a, VEL, X, curve_length, TIMES, time_start)
         self.plot(A, V, XX, TIMES, time_start)# plt.plot all
-        print("> making accel fin")
+        print("1> making accel fin")
         return A, V, XX, curve_length, t
     def making_curve_length(self, x_ref, y_ref):
         curve_length = 0
@@ -74,7 +75,7 @@ class accel_designer(object):
         vel_end   = VEL[2]
 
         x_start = X[2]
-        for ind in np.arange(0.0, t, 0.008):
+        for ind in np.arange(0.0, t, self.dt):
             if ind<=t1:
                 A.append(a)
                 v1 = a*ind +vel_start
@@ -156,7 +157,7 @@ class accel_designer(object):
             return 0.5*-am*t**2 + v0*t + x0
     def plot(self, A, V, XX, TIMES, time_start):
         t = TIMES[0]
-        time = np.arange(start= time_start, stop= t + time_start, step= 0.008, dtype= np.float)
+        time = np.arange(start= time_start, stop= t + time_start, step= self.dt, dtype= np.float)
         #print('len(time)={}'.format(len(time)))
         #print('len(V)={}'.format(len(V)))
         plt.plot(time, A, color ="red", marker="o", label='A')#marker=".", ls=""

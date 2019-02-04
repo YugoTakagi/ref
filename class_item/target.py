@@ -10,11 +10,12 @@ import csv
 
 class target(object):
     """docstring for target"""
-    def __init__(self):
-        pass
+    dt = 0
+    def __init__(self, dt):
+        self.dt = dt
     def target_make(self, a, VEL, BEZIER, x_start, time_start):
         ##init##################################################################
-        acd = accel_designer()
+        acd = accel_designer(self.dt)
         inb = integrate_number()
         bz = bezier(number_of_points=1000)
 
@@ -42,7 +43,7 @@ class target(object):
         self.vx = vx
         self.vy = vy
         self.alfa = alfa
-        print("> target fin")
+        print("3> target fin")
         return npBEZIER, BEZIER, npREF, REF, t, curve_length, vx, vy, alfa
     def making_vx_and_vy(self,V,ALFA,time):
         vx = []

@@ -1,7 +1,5 @@
 from class_item.target import target
 from class_item.target_item.bezier import bezier
-from class_item.target_item.integrate_number import integrate_number
-from class_item.target_item.accel_designer import accel_designer
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -13,13 +11,14 @@ from matplotlib import animation
 #'''
 class game(object):
     """docstring for game_class."""
-    def __init__(self):
-        pass
-    def run(self):
+    dt = 0
+    def __init__(self, dt):
+        self.dt = dt
+    def run(self, anime):
         print("+++ game start")
         ##init #################################################################
-        bz = bezier(number_of_points=1000)
-        tg = target()
+        bz = bezier(number_of_points=5000)
+        tg = target(self.dt)
         ##init accel_designer###################################################
         xs = 0.0                                #x start
         ts = 0.0                                #t start
@@ -54,55 +53,38 @@ class game(object):
 
         print("game time  := {}[s]".format(t1+t2+t3+t4))
         print("game lenge := {}[m]".format(x1+x2+x3+x4))
+        self.plot(npREF)
 
+        if anime == True:
+            self.plot_size(npREF)
+            ##init anime########################################################
+            vx=[]
+            vx.extend(vx1)
+            vx.extend(vx2)
+            vx.extend(vx3)
+            vx.extend(vx4)
+            vy=[]
+            vy.extend(vy1)
+            vy.extend(vy2)
+            vy.extend(vy3)
+            vy.extend(vy4)
+            alfa=[]
+            alfa.extend(alfa1)
+            alfa.extend(alfa2)
+            alfa.extend(alfa3)
+            alfa.extend(alfa4)
+            self.anime_ff(vx, vy, alfa)
+            ####################################################################
+        print("+++ end game")
+    def plot(self, npREF):
         plt.show()
-        plt.hold(True)
-        plt.plot(npNEW_LOB1.T[0],npNEW_LOB1.T[1], marker=".", color="#4278C5")
-        plt.plot(npNEW_LOB2.T[0],npNEW_LOB2.T[1], marker=".", color="#4278C5")
-        plt.plot(npNEW_LOB3.T[0],npNEW_LOB3.T[1], marker=".", color="#4278C5")
-        plt.plot(npNEW_LOB4.T[0],npNEW_LOB4.T[1], marker=".", color="#4278C5")
+        #plt.hold(True)
+        plt.plot(npREF.T[0],npREF.T[1], marker=".", color="#4278C5")
         plt.title("ref")
         plt.axis("equal")
         plt.grid(True)
         plt.show()
-        '''
-        #npLOB, LOB, npNEW_LOB, NEW_LOB = self.target.making_target_value_test_red_nozaki()
-        plt.plot(npNEW_LOB.T[0],npNEW_LOB.T[1], marker=".", color="#B40404")
-        #plt.title("run run")
-        print("len = {}, {}".format(len(npNEW_LOB.T[0]),len(npNEW_LOB.T[1])))
-        with open('csv_item/test3.csv', 'w') as f:
-            writer = csv.writer(f)
-            for t0,t1 in zip(npNEW_LOB.T[0],npNEW_LOB.T[1]):
-                writer.writerow((t0,t1))
-
-        with open('csv_item/x_ref2.csv', 'w') as f:
-            writer = csv.writer(f)  # writer
-            writer.writerow(npNEW_LOB.T[0])
-        with open('csv_item/y_ref2.csv', 'w') as f:
-            writer = csv.writer(f)  # writer
-            writer.writerow(npNEW_LOB.T[1])
-            #writer.writeheader()
-            #writer.writerow(npNEW_LOB.T[0])
-            #writer.writerow(npNEW_LOB.T[1])
-        plt.title("already arrange")
-        plt.show()
-        '''
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    def plot_size(self, npREF):
         ########################################################################
         ########################################################################
         ###########################     model     ##############################
@@ -143,15 +125,7 @@ class game(object):
         plt.axis("equal")
         plt.grid(True)
         plt.show()
-
-
-
-
-
-
-
-
-
+    def anime_ff(self, vx, vy, alfa):
         #'''#FF
         fig = plt.figure()
         ims = []
@@ -159,25 +133,11 @@ class game(object):
         Y = []
         x=0
         y=0
-        vx=[]
-        vx.extend(vx1)
-        vx.extend(vx2)
-        vx.extend(vx3)
-        vx.extend(vx4)
-        vy=[]
-        vy.extend(vy1)
-        vy.extend(vy2)
-        vy.extend(vy3)
-        vy.extend(vy4)
-        alfa=[]
-        alfa.extend(alfa1)
-        alfa.extend(alfa2)
-        alfa.extend(alfa3)
-        alfa.extend(alfa4)
+        ssp=[-0.5,-0.5]
         #V = self.target.get_V()
         for index in np.arange(start=1, stop=len(vx)-1, step=1, dtype= int):
-            x = x + vx[index] * 0.008
-            y = y + vy[index] * 0.008
+            x = x + vx[index] * self.dt
+            y = y + vy[index] * self.dt
             X.append(x)
             Y.append(y)
 
@@ -223,7 +183,3 @@ class game(object):
         ########################################################################
         #'''
         plt.show()
-
-
-
-        print("+++ end game")
