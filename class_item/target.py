@@ -44,7 +44,8 @@ class target(object):
         self.vy = vy
         self.alfa = alfa
         print("3> target fin")
-        return npBEZIER, BEZIER, npREF, REF, t, curve_length, vx, vy, alfa
+        #return npBEZIER, BEZIER, npREF, REF, t, curve_length, vx, vy, alfa
+        return REF, t, curve_length, vx, vy, alfa
     def making_vx_and_vy(self,V,ALFA,time):
         vx = []
         vy = []
