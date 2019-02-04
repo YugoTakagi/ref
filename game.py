@@ -38,17 +38,17 @@ class game(object):
         BEZIER4 = bz.bezier_making(BEZIER_ANCER4, 3)
 
         ##def target_make(self, a, BEZIER, VEL, x_start, time_start):   * a := float
-        NEW_LOB1, t1, x1, vx1, vy1, alfa1 = tg.target_make(5.0, VEL1, BEZIER1, xs, ts)
-        NEW_LOB2, t2, x2, vx2, vy2, alfa2 = tg.target_make(5.0, VEL2, BEZIER2, x1, t1)
-        NEW_LOB3, t3, x3, vx3, vy3, alfa3 = tg.target_make(5.0, VEL3, BEZIER3, x1+x2, t1+t2)
-        NEW_LOB4, t4, x4, vx4, vy4, alfa4 = tg.target_make(5.0, VEL4, BEZIER4, x1+x2+x3, t1+t2+t3)
+        REF1, t1, x1, vx1, vy1, alfa1 = tg.target_make(5.0, VEL1, BEZIER1, xs, ts)
+        REF2, t2, x2, vx2, vy2, alfa2 = tg.target_make(5.0, VEL2, BEZIER2, x1, t1)
+        REF3, t3, x3, vx3, vy3, alfa3 = tg.target_make(5.0, VEL3, BEZIER3, x1+x2, t1+t2)
+        REF4, t4, x4, vx4, vy4, alfa4 = tg.target_make(5.0, VEL4, BEZIER4, x1+x2+x3, t1+t2+t3)
 
 
         REF = []
-        REF.extend(NEW_LOB1)
-        REF.extend(NEW_LOB2)
-        REF.extend(NEW_LOB3)
-        REF.extend(NEW_LOB4)
+        REF.extend(REF1)
+        REF.extend(REF2)
+        REF.extend(REF3)
+        REF.extend(REF4)
         npREF = np.array(REF)
 
         print("game time  := {}[s]".format(t1+t2+t3+t4))
